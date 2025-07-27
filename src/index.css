@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+
+.stars-bg {
+  background-image: url('/introAssets/stars.png');
+  background-position: center;
+  background-repeat: repeat;
+}
+
+.back-build {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: back-build;
+  animation-duration: 2s;
+}
+
+.kaaba-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: kaaba;
+  animation-duration: 1s;
+}
+
+.manar1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: manar1;
+  animation-duration: 4s;
+}
+
+.manar2 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: manar2;
+  animation-duration: 4s;
+}
+
+.manar3 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: manar3;
+  animation-duration: 4s;
+}
+
+.manar4 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: manar4;
+  animation-duration: 4s;
+}
+
+@keyframes back-build {
+  from {
+    transform: translate(-50%, 50%);
+    opacity: 0%;
+  }
+
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 100%;
+  }
+}
+
+@keyframes kaaba {
+  from {
+    transform: translate(-50%, 50%);
+    opacity: 0%;
+  }
+
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 100%;
+  }
+}
+
+@keyframes manar1 {
+  from {
+    transform: translate(-50%, 50%);
+    opacity: 0%;
+  }
+
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 100%;
+  }
+}
+
+@keyframes manar2 {
+  from {
+    transform: translate(-50%, 50%);
+    opacity: 0%;
+  }
+
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 100%;
+  }
+}
+
+@keyframes manar3 {
+  from {
+    transform: translate(-50%, 50%);
+    opacity: 0%;
+  }
+
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 100%;
+  }
+}
+
+@keyframes manar4 {
+  from {
+    transform: translate(-50%, 50%);
+    opacity: 0%;
+  }
+
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 100%;
+  }
+}
+
+.track-section-bg {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.track-section-bg img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
