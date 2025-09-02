@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
-function Header() {
+function Header({ bgColor = false }) {
     const [menuOpen, setMenuOpen] = useState(false);
+
     return (
-        <header className="fixed top-0 left-0 w-full z-50  bg-opacity-95 ">
+        <header className={`fixed top-0 left-0 w-full z-50  bg-opacity-95 ${bgColor? 'bg-transparent': 'bg-[#091057]'}`}>
             <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-10 py-2 h-[70px]">
                 {/* شعار يمين */}
                 <div className="flex items-center gap-2">
@@ -16,7 +17,7 @@ function Header() {
                 <nav className="flex-1 hidden md:flex items-center justify-center">
                     <ul className="flex flex-row-reverse gap-2 md:gap-6 text-white font-bold text-sm md:text-lg">
                         <li><Link to="/" className="hover:text-[#FBC134] transition-colors">الرئيسية</Link></li>
-                        <li><Link to="/hajjsteps" className="hover:text-[#FBC134] transition-colors">خطوات الحج</Link></li>
+                        <li><Link to="/hajjsteps" className="hover:text-[#FBC134]  transition-colors">خطوات الحج</Link></li>
                         <li><Link to="/duaa" className="hover:text-[#FBC134] transition-colors">الأدعية</Link></li>
                         <li><Link to="/skillsguid" className="hover:text-[#31B29C] transition-colors">إرشادات المعين</Link></li>
                         <li><Link to="/podcast/hajj" className="hover:text-[#FBC134] transition-colors">بودكاست الحاج</Link></li>

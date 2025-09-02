@@ -1,163 +1,103 @@
-import React from 'react'
 
-
-import { useState } from 'react';
-
-const STEPS = [
-    {
-        title: 'الإحرام',
-        image: '/public/manasekImage/step1.png',
-        day: '8 ذو الحجة (يوم التروية)',
-        description: `يبدأ الحاج أول مناسك الحج بالإحرام من الميقات المحدد حسب جهة قدومه (مثل: ذو الحليفة، يلملم، الجحفة، قرن المنازل، ذات عرق). 
-      عند الوصول للميقات يُستحب الاغتسال، والتطيب (للرجال قبل نية الإحرام)، ثم يلبس ملابس الإحرام (إزار ورداء أبيضين للرجل، ولباس محتشم للمرأة دون تغطية الوجه أو الكفين). 
-      ينوي الحاج نية الدخول في النسك ويقول: "لبيك اللهم حجًا"، ثم يشرع بالتلبية: "لبيك اللهم لبيك..." ويستمر بها حتى رمي جمرة العقبة.`,
-        duaa: `اللهم لبيك حجاً، لبيك بتوحيد خالص، اللهم اجعلها حجةً مبرورة وسعياً مشكوراً وذنباً مغفوراً.`,
-        tips: [
-            'تأكد من تحديد نوع النسك (إفراد، قران، تمتع).',
-            'جهز ملابس الإحرام قبل السفر.',
-            'تجنب محظورات الإحرام مثل قص الشعر، تغطية الرأس، استخدام العطور بعد النية.',
-            'لا تنس أداء ركعتين قبل نية الإحرام (سنة مستحبة).',
-            'استمر بالتلبية كلما صعدت أو نزلت أو التقيت بأحد.',
-        ],
-    },
-    {
-        title: 'الوقوف بعرفة',
-        image: '/public/manasekImage/step2.png',
-        day: '9 ذو الحجة',
-        description: `في صبيحة يوم عرفة، يتوجه الحجاج إلى سهل عرفات بعد الشروق. بعد الزوال (الظهر)، يُصلي الحاج الظهر والعصر جمعًا وقصرًا في وقت واحد في مسجد نمرة، ويبدأ الوقوف والدعاء حتى غروب الشمس.
-      وهو الركن الأعظم من الحج، ومن فاته الوقوف بعرفة فاته الحج. يُستحب رفع اليدين والإكثار من الذكر والدعاء، والبكاء من خشية الله.`,
-        duaa: `خير الدعاء دعاء يوم عرفة: "لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير".
-      + اللهم اجعلني من عتقائك من النار في هذا اليوم العظيم.`,
-        tips: [
-            'تأكد من دخول حدود عرفة (تحقق من اللوحات).',
-            'احمل معك الماء والمظلة لتجنب الحر الشديد.',
-            'ابدأ الدعاء بعد الصلاة مباشرة وحتى غروب الشمس.',
-            'لا تغادر عرفة قبل غروب الشمس.',
-            'هيّئ قلبك وتفرغ تمامًا للدعاء، فهو يوم لا يُعوض.',
-        ],
-    },
-    {
-        title: 'المبيت بمزدلفة',
-        image: '/public/manasekImage/step3.png',
-        day: 'ليلة 10 ذو الحجة',
-        description: `بعد غروب شمس عرفة، ينفر الحجاج إلى مزدلفة بهدوء، ويُصلى فيها المغرب والعشاء جمع تأخير (ثلاث ركعات للمغرب وركعتين للعشاء) بأذان واحد وإقامتين. 
-      يبيت الحاج ليلته في مزدلفة، وهو مبيت واجب. يقوم بجمع حصى الجمرات (عدد 70 تقريبًا) لاستخدامها لاحقًا في الرمي. يُستحب ذكر الله والتسبيح حتى الفجر.`,
-        duaa: `اللهم تقبل وقوفي بعرفة ومبيتي بمزدلفة، اللهم إني أعود برحمتك لا بعملي.`,
-        tips: [
-            'اجمع الحصى من مزدلفة، حجمها مثل حبة الفول أو الحمصة.',
-            'احرص على النوم مبكرًا لتستعد ليوم النحر.',
-            'في حال الزحام أو كبار السن، يجوز الدفع بعد منتصف الليل.',
-            'اصطحب معك فراش خفيف أو وسادة.',
-            'أدِ صلاة الفجر واذكر الله حتى يسفر الجو.',
-        ],
-    },
-    {
-        title: 'رمي جمرة العقبة الكبرى',
-        image: '/public/manasekImage/jamarat.jpg',
-        day: '10 ذو الحجة (عيد الأضحى)',
-        description: `بعد المبيت في مزدلفة، ينطلق الحاج إلى منى فجر يوم النحر. أول الأعمال هو رمي جمرة العقبة الكبرى (أقرب الجمرات إلى مكة) بسبع حصيات متتابعة، ويكبّر مع كل حصاة.
-      بعد الرمي، يقوم الحاج بذبح الهدي (واجب على المتمتع والقارن)، ثم يحلق أو يقصر شعره (والحلق أفضل للرجال). بعد هذه الأعمال يتحلل التحلل الأول.`,
-        duaa: `بسم الله، الله أكبر، رميًا بحجر، اللهم اجعله حجًا مبرورًا وسعيًا مشكورًا.`,
-        tips: [
-            'لا ترمِ إلا بعد شروق الشمس وحتى الزوال.',
-            'تجنب رمي الحصى بشكل عشوائي، يجب أن تقع داخل الحوض.',
-            'تأكد من الترتيب: رمي → ذبح → حلق.',
-            'للحائض والنفساء: لا يلزم الطواف حتى الطهر.',
-            'بعد التحلل الأول، يجوز لبس الثياب العادية لكن لا تقرب النساء.',
-        ],
-    },
-    {
-        title: 'طواف الإفاضة والسعي',
-        image: '/public/manasekImage/tawaf.jpg',
-        day: '10 ذو الحجة وما بعدها',
-        description: `بعد التحلل، يتوجه الحاج إلى المسجد الحرام لأداء طواف الإفاضة، وهو أحد أركان الحج. يُطاف سبعة أشواط حول الكعبة بدءًا من الحجر الأسود.
-      بعده يُصلي ركعتين خلف مقام إبراهيم، ثم يسعى بين الصفا والمروة (سبعة أشواط).`,
-        duaa: `ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار، واجعل حجنا مقبولاً وذنبنا مغفورًا.`,
-        tips: [
-            'تأكد من الطهارة قبل الطواف.',
-            'احرص على عدم التحدث أثناء الطواف لغير حاجة.',
-            'إذا تعبت فاسترح بين الأشواط.',
-            'يُفضل الطواف في الليل لتجنب الحر والزحام.',
-            'إن كنت متمتعًا، فهذا السعي سعي الحج.',
-        ],
-    },
-    {
-        title: 'المبيت بمنى ورمي الجمرات الثلاث',
-        image: '/public/manasekImage/mina.jpg',
-        day: '11-12 ذو الحجة',
-        description: `يعود الحاج إلى منى للمبيت ورمي الجمرات الثلاث (الصغرى، الوسطى، الكبرى) كل يوم بعد الزوال. يبدأ بالصغرى (أبعد واحدة)، ثم الوسطى، ثم الكبرى، كل واحدة بسبع حصيات.
-      بعد الرمي، يُستحب الوقوف والدعاء بعد الصغرى والوسطى فقط.`,
-        duaa: `اللهم اجعلها أيامًا مباركة، اللهم تقبل رميي وتجاوز عن تقصيري، واجعل سعيي خالصًا لك.`,
-        tips: [
-            'ارمِ بعد الزوال (وقت الظهر تقريبًا).',
-            'ابدأ بالصغرى ثم الوسطى ثم العقبة الكبرى.',
-            'توقف للدعاء بعد الجمرة الصغرى والوسطى.',
-            'اتبع مسارات التفويج والتعليمات الأمنية.',
-            'من تعجل يخرج في اليوم 12 قبل غروب الشمس، ومن تأخر فليبيت لليوم 13.',
-        ],
-    },
-    {
-        title: 'طواف الوداع',
-        image: '/public/manasekImage/wada.jpg', // تأكد من وجود صورة مناسبة
-        day: 'قبل مغادرة مكة',
-        description: `بعد الانتهاء من جميع مناسك الحج والمبيت بمنى، وعند الاستعداد لمغادرة مكة، يقوم الحاج بأداء طواف الوداع. 
-    يُطاف حول الكعبة سبعة أشواط بدون سعي، ويكون آخر عهد الحاج بالبيت الحرام.
-    لا يجوز مغادرة مكة بعده إلا لضرورة.`,
-        duaa: `اللهم لا تجعل هذا آخر العهد ببيتك الحرام، وإن جعلته فاجعلني من المرحومين، وارجعني إلى بيتك هذا مرات عديدة.`,
-        tips: [
-            'يجب أداء الطواف مباشرة قبل السفر.',
-            'لا تسوّق أو تتأخر بعد طواف الوداع إلا لضرورة (مثل تعبئة وقود السيارة).',
-            'يُسقط طواف الوداع عن الحائض والنفساء فقط.',
-            'يُستحب الإكثار من الدعاء أثناء الطواف.',
-            'اجعل نيتك خالصة لله، فالوداع موقف روحاني مؤثر.',
-        ],
-    }
-
-];
-
-
+import React, { useState, useEffect } from 'react';
+import Header from '../components/Header';
 const MAIN_COLOR = '#FBC134';
 
 function Footsteps() {
+    const [steps, setSteps] = useState([]);
+    const [tips, setTips] = useState({}); // step_id => [tips]
     const [step, setStep] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const current = STEPS[step];
+    useEffect(() => {
+        async function fetchData() {
+            setLoading(true);
+            try {
+                // جلب الخطوات
+                const stepsRes = await fetch('https://yafe3on.com/backend/api/manasek/getSteps.php');
+                const stepsData = await stepsRes.json();
+                if (!stepsData.success) throw new Error('خطأ في جلب الخطوات');
+                // ترتيب الخطوات حسب رقم الترتيب أو id
+                const sortedSteps = (stepsData.steps || []).sort((a, b) => {
+                    // إذا فيه ترتيب رقمي واضح مثل order أو ترتيب id
+                    if (a.order !== undefined && b.order !== undefined) {
+                        return a.order - b.order;
+                    }
+                    if (a.id !== undefined && b.id !== undefined) {
+                        return a.id - b.id;
+                    }
+                    return 0;
+                });
+                setSteps(sortedSteps);
+
+                // جلب النصائح
+                const tipsRes = await fetch('https://yafe3on.com/backend/api/manasek/getTips.php');
+                const tipsData = await tipsRes.json();
+                if (!tipsData.success) throw new Error('خطأ في جلب النصائح');
+                // تحويل النصائح إلى كائن: step_id => [tips]
+                const tipsMap = {};
+                (tipsData.tips || []).forEach(tip => {
+                    if (!tipsMap[tip.step_id]) tipsMap[tip.step_id] = [];
+                    tipsMap[tip.step_id].push(tip.tip);
+                });
+                setTips(tipsMap);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchData();
+    }, []);
+
+    const current = steps[step] || {};
+    const currentTips = current.id ? (tips[current.id] || []) : [];
 
     return (
-        <div className="min-h-screen w-full bg-[#FBC134]/10 flex flex-col items-center py-8 px-2">
+        <div className="min-h-screen w-full bg-[#FBC134]/10 flex flex-col items-center py-8 px-2 pt-[90px]">
+            <Header/>
             <h1 className="text-4xl font-extrabold mb-8 tracking-tight text-center" style={{ color: MAIN_COLOR, textShadow: '0 2px 8px #fff7e0' }}>
                 خطوات الحج بالتفصيل
             </h1>
             <div className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl border-2 flex flex-col md:flex-row items-center p-6 md:p-10 mb-8 relative" style={{ borderColor: MAIN_COLOR }}>
-                <div className="w-full md:w-1/2 flex justify-center items-center mb-6 md:mb-0">
-                    <img src={current.image} alt={current.title} className="rounded-2xl shadow-lg max-h-64 object-fill w-full" style={{ border: `3px solid ${MAIN_COLOR}` }} />
-                </div>
-                <div className="w-full md:w-1/2 flex flex-col gap-3 md:pl-8 text-right">
-                    <div className="text-2xl font-bold mb-2 text-[#FBC134]">{current.title}</div>
-                    <div className="text-md text-gray-700 mb-2"><span className="font-semibold">اليوم:</span> {current.day}</div>
-                    <div className="text-md text-gray-700 mb-2"><span className="font-semibold">الشرح:</span> {current.description}</div>
-                    <div className="bg-[#FBC134]/20 border-r-4 border-[#FBC134] p-3 rounded-xl text-gray-800 text-md font-medium shadow-sm mb-2">
-                        <span className="font-semibold text-[#FBC134]">الدعاء:</span> {current.duaa}
-                    </div>
-                    <ul dir="rtl" className="list-disc list-outside text-gray-700 mt-2 s text-right">
-                        {current.tips.map((tip, i) => (
-                            <li key={i} className="mb-1">{tip}</li>
-                        ))}
-                    </ul>
-                </div>
+                {loading ? (
+                    <div className="w-full text-center py-12 text-gray-400">جاري تحميل الخطوات...</div>
+                ) : error ? (
+                    <div className="w-full text-center py-12 text-red-400">{error}</div>
+                ) : (
+                    <>
+                        <div className="w-full md:w-1/2 flex justify-center items-center mb-6 md:mb-0">
+                            <img src={current.image_url} alt={current.title} className="rounded-2xl shadow-lg max-h-64 object-fill w-full" style={{ border: `3px solid ${MAIN_COLOR}` }} />
+                        </div>
+                        <div className="w-full md:w-1/2 flex flex-col gap-3 md:pl-8 text-right">
+                            <div className="text-2xl font-bold mb-2 text-[#FBC134]">{current.title}</div>
+                            <div className="text-md text-gray-700 mb-2"><span className="font-semibold">اليوم:</span> {current.day}</div>
+                            <div className="text-md text-gray-700 mb-2"><span className="font-semibold">الشرح:</span> {current.description}</div>
+                            <div className="bg-[#FBC134]/20 border-r-4 border-[#FBC134] p-3 rounded-xl text-gray-800 text-md font-medium shadow-sm mb-2">
+                                <span className="font-semibold text-[#FBC134]">الدعاء:</span> {current.duaa}
+                            </div>
+                            <ul dir="rtl" className="list-disc list-outside text-gray-700 mt-2  text-right">
+                                {currentTips.map((tip, i) => (
+                                    <li key={i} className="mb-1">{tip}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </>
+                )}
             </div>
             <div className="flex gap-4 mt-4">
                 <button
                     onClick={() => setStep((s) => Math.max(0, s - 1))}
-                    disabled={step === 0}
-                    className={`px-6 py-2 rounded-full font-bold shadow-md border-2 transition-colors ${step === 0 ? 'bg-gray-200 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-[#FBC134] border-[#FBC134] hover:bg-[#FBC134] hover:text-white'}`}
+                    disabled={step === 0 || loading || steps.length === 0}
+                    className={`px-6 py-2 rounded-full font-bold shadow-md border-2 transition-colors ${step === 0 || loading || steps.length === 0 ? 'bg-gray-200 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-[#FBC134] border-[#FBC134] hover:bg-[#FBC134] hover:text-white'}`}
                 >
                     الخطوة السابقة
                 </button>
                 <button
-                    onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}
-                    disabled={step === STEPS.length - 1}
-                    className={`px-6 py-2 rounded-full font-bold shadow-md border-2 transition-colors ${step === STEPS.length - 1 ? 'bg-gray-200 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-[#FBC134] border-[#FBC134] hover:bg-[#FBC134] hover:text-white'}`}
+                    onClick={() => setStep((s) => Math.min(steps.length - 1, s + 1))}
+                    disabled={step === steps.length - 1 || loading || steps.length === 0}
+                    className={`px-6 py-2 rounded-full font-bold shadow-md border-2 transition-colors ${step === steps.length - 1 || loading || steps.length === 0 ? 'bg-gray-200 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-[#FBC134] border-[#FBC134] hover:bg-[#FBC134] hover:text-white'}`}
                 >
                     الخطوة التالية
                 </button>
@@ -167,4 +107,4 @@ function Footsteps() {
     );
 }
 
-export default Footsteps
+export default Footsteps;

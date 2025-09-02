@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import TrackSectionDesktop from '../components/TrackSectionDesktop'
-import TrackSectionMobile from '../components/trackSectionMobile'
+import TrackSectionMobile from '../components/TrackSectionMobile'
 function SelectPage() {
         const [screenWidth, setScreenWidth] = useState(window.innerWidth);
         const [screenHieght, setScreenHeight] = useState(window.innerHeight);

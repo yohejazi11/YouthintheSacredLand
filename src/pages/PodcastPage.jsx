@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Header from '../components/Header';
 
 const COLORS = {
   hajj: '#FBC134', // برتقالي
@@ -16,55 +17,29 @@ function PodcastPage() {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    // بيانات بودكاست وهمية للتجربة
-    const dummyPodcasts = {
-      hajj: [
-        {
-          id: 1,
-          title: 'رحلة الحاج - الحلقة 1',
-          description: 'مقدمة عن رحلة الحج وأهم النصائح للحجاج الجدد.',
-          media_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-        },
-        {
-          id: 2,
-          title: 'مناسك الحج خطوة بخطوة',
-          description: 'شرح مبسط لمناسك الحج من الإحرام حتى طواف الوداع.',
-          media_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-        },
-      ],
-      volunteer: [
-        {
-          id: 3,
-          title: 'دور المتطوع في خدمة الحجاج',
-          description: 'كيف تكون معينًا ناجحًا للحجاج وأهم المهارات المطلوبة.',
-          media_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-        },
-        {
-          id: 4,
-          title: 'تجارب المتطوعين في الميدان',
-          description: 'قصص واقعية من متطوعين سابقين في خدمة ضيوف الرحمن.',
-          media_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
-        },
-      ],
-    };
-
-    // جلب من الباك اند (عند توفره)
-    fetch(`/api/podcasts?type=${content}`)
+    // جلب البودكاست من الباكند حسب التصنيف
+    fetch(`https://yafe3on.com/backend/api/podcasts/getPodcasts.php`)
       .then((res) => {
         if (!res.ok) throw new Error('Network response was not ok');
         return res.json();
       })
       .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setPodcasts(data);
-        } else {
-          setPodcasts(dummyPodcasts[content] || []);
+        // تصفية حسب التصنيف
+        let filtered = [];
+        if (Array.isArray(data)) {
+          if (content === 'hajj') {
+            filtered = data.filter(p => p.category_name && p.category_name.trim().toLowerCase() === 'hajj');
+          } else if (content === 'volunteer') {
+            filtered = data.filter(p => p.category_name && p.category_name.trim().toLowerCase() === 'volunteer');
+          } else {
+            filtered = data;
+          }
         }
+        setPodcasts(filtered);
         setLoading(false);
       })
       .catch(() => {
-        setPodcasts(dummyPodcasts[content] || []);
-        setError(null); // لا تظهر رسالة خطأ عند عرض الداتا الوهمية
+        setError('تعذر جلب ملفات البودكاست');
         setLoading(false);
       });
   }, [content]);
@@ -74,7 +49,8 @@ function PodcastPage() {
   const bgColor = content === 'hajj' ? 'bg-[#FBC134]/10' : content === 'volunteer' ? 'bg-[#31B29C]/10' : 'bg-gray-200';
 
   return (
-    <div className={`min-h-screen w-full ${bgColor} flex flex-col items-center py-6 px-2`}> 
+    <div className={`min-h-screen  w-full ${bgColor} flex flex-col items-center py-6 px-2 pt-[90px]`}> 
+      <Header />
       <h1 className="text-3xl font-bold mb-6" style={{ color: mainColor }}>
         {content === 'hajj' ? 'بودكاست الحاج' : content === 'volunteer' ? 'بودكاست المعين/المتطوع' : 'البودكاست'}
       </h1>

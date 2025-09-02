@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 // تمرير سلس إلى قسم الكتاب
 function scrollToBookSection() {
     const bookSection = document.getElementById('book-section');
@@ -9,6 +10,7 @@ function scrollToBookSection() {
 }
 
 function HeroSection() {
+    const navigate = useNavigate();
     return (
         <div className="w-full h-[100vh] bg-gradient-to-b from-[#091057] to-[#024CAA] flex flex-col md:flex-row items-end justify-center overflow-hidden">
             {/* الجهة اليسرى: عنوان ووصف وإعلان الكتاب */}
@@ -37,7 +39,7 @@ function HeroSection() {
                     className=" p-4 md:p-6  md:gap-4 flex justify-center  max-w-xs md:max-w-md w-full"
                 >
                     <button
-                        onClick={scrollToBookSection}
+                        onClick={() => { navigate('/selectpage') }}
                         className="px-4 md:px-6 py-2 rounded-full bg-[#31B29C] text-white font-bold text-base md:text-lg shadow hover:bg-[#024CAA] transition-colors w-full md:w-auto"
                     >
                         أبداء الان
